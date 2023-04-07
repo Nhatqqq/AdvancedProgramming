@@ -16,7 +16,28 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::group(['middleware' => ['auth', 'role:Admin']], function () {
+    // admin routes
+    Route::prefix('admin')->group(function () {
+        Route::get('/',[AdminController::class,'Adminindex'])->name('admin.index');
+        Route::prefix('role')->group(function () {
+            Route::get('/',[AdminController::class,'Roleindex'])->name('admin.role.index');
+            Route::get('add/',[AdminController::class,'getAddRole']);
+            Route::post('add/',[AdminController::class,'postAddRole'])->name('admin.role.add');
+            Route::get('update/{id}',[AdminController::class,'getUpdateRole']);
+            Route::post('update/{id}',[AdminController::class,'postUpdateRole'])->name('admin.role.update');
+            Route::get('delete/{id}',[AdminController::class,'deleteRole']);
+        });
+        Route::prefix('account')->group(function () {
+            Route::get('/',[AdminController::class,'Accountindex'])->name('admin.account.index');
+            Route::get('add/',[AdminController::class,'getAddAccount']);
+            Route::post('add/',[AdminController::class,'postAddAccount'])->name('admin.account.add');
+            Route::get('update/{id}',[AdminController::class,'getUpdateAccount']);
+            Route::post('update/{id}',[AdminController::class,'postUpdateAccount'])->name('admin.account.update');
+            Route::get('delete/{id}',[AdminController::class,'deleteAccount']);
+        });
+    });
+});
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
