@@ -1,4 +1,4 @@
-@extends('Staff.Layout.master')
+@extends('Admin.Layout.master')
 @section('content')
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -23,25 +23,17 @@
                             <fieldset>
                                 <div>
                                     @csrf
-                                    <label>Topic:</label>
-                                    <select name="topic_id" class="form-control">
-                                        @foreach ($topic as $topics)
-                                            <option value="{{ $topics->id }}">{{ $topics->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    <label>Name:</label>
+                                    <input type="text" class="form-control" name="name" value="{{ $role->name }}">
                                     <br>
-                                    <label>Trainer:</label>
-                                    <select name="trainer_id" class="form-control">
-                                        @foreach ($trainer as $trainers)
-                                            <option value="{{ $trainers->id }}">{{ $trainers->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <label>Description:</label>
+                                    <textarea class="form-control" name="description"
+                                    style="width: 100%; height:100px;">{{ $role->description }}</textarea>
                                     <br>
                                 </div>
                             </fieldset>
                             <button class="btn btn-primary btn-block text-uppercase mb-3" type="submit">
-                                Assign Topic
+                                Update Role
                             </button>
                         </form>
                     </div>

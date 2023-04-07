@@ -1,4 +1,4 @@
-@extends('Staff.Layout.master')
+@extends('Admin.Layout.master')
 @section('content')
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -17,31 +17,23 @@
             <div class="col-xs-12 col-md-5 col-lg-5">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <form action="" method="POST" role="form"
+                        <form action="{{ route('admin.role.add') }}" method="POST" role="form"
                             enctype="multipart/form-data">
                             @csrf
                             <fieldset>
                                 <div>
                                     @csrf
-                                    <label>Course:</label>
-                                    <select name="course_id" class="form-control">
-                                        @foreach ($course as $courses)
-                                            <option value="{{ $courses->id }}">{{ $courses->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    <label>Name:</label>
+                                    <input type="text" class="form-control" name="name" placeholder="Role Name">
                                     <br>
-                                    <label>Trainee:</label>
-                                    <select name="trainee_id" class="form-control">
-                                        @foreach ($trainee as $trainees)
-                                            <option value="{{ $trainees->id }}">{{ $trainees->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <label>Description:</label>
+                                    <textarea class="form-control" name="description"
+                                    style="width: 100%; height:100px;" placeholder="Descrption"></textarea>
                                     <br>
                                 </div>
                             </fieldset>
                             <button class="btn btn-primary btn-block text-uppercase mb-3" type="submit">
-                                Assign Course
+                                Add Role
                             </button>
                         </form>
                     </div>

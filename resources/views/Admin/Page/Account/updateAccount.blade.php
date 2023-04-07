@@ -1,4 +1,4 @@
-@extends('Staff.Layout.master')
+@extends('Admin.Layout.master')
 @section('content')
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -17,32 +17,28 @@
             <div class="col-xs-12 col-md-5 col-lg-5">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <form action="{{ route('staff.assigntopic.add') }}" method="POST" role="form"
+                        <form action="" method="POST" role="form"
                             enctype="multipart/form-data">
                             @csrf
                             <fieldset>
                                 <div>
                                     @csrf
-                                    <label>Topic:</label>
-                                    <select name="topic_id" class="form-control">
-                                        @foreach ($topic as $topics)
-                                            <option value="{{ $topics->id }}">{{ $topics->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    <label>Username:</label>
+                                    <input type="text" class="form-control" name="username" value="{{ $account->username }}">
                                     <br>
-                                    <label>Trainer:</label>
-                                    <select name="trainer_id" class="form-control">
-                                        @foreach ($trainer as $trainers)
-                                            <option value="{{ $trainers->id }}">{{ $trainers->name }}
-                                            </option>
-                                        @endforeach
+                                    <label>Password:</label>
+                                    <input type="password" class="form-control" name="password" placeholder="Password">
+                                    <br>
+                                    <br>
+                                    <select class="form-control" name="role_id" value="{{ old('role_id') }}">
+                                        <option value="2">Staff</option>
+                                        <option value="3">Trainer</option>
                                     </select>
                                     <br>
                                 </div>
                             </fieldset>
                             <button class="btn btn-primary btn-block text-uppercase mb-3" type="submit">
-                                Assign Topic
+                                Update Account
                             </button>
                         </form>
                     </div>
@@ -50,4 +46,5 @@
             </div>
         </div>
     </div>
+</div>
 @endsection

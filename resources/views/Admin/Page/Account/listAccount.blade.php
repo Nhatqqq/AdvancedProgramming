@@ -1,4 +1,4 @@
-@extends('Staff.Layout.master')
+@extends('Admin.Layout.master')
 @section('content')
     <!-- Begin Page Content -->
     <div class="container-fluid">
@@ -20,26 +20,10 @@
             <div class="card-header py-3">
                 <div class="row">
                     <div class="cpl-sm-12 col-md-6">
-                        <h4 class="m-0 font-weight-bold text-primary">Course List
-                            <!-- Topbar Search -->
-                            <form action="{{ route('staff.course.search') }}" method="GET"
-                                class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control bg-light border-0 small"
-                                        placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2"
-                                        name="search" required>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="submit">
-                                            <i class="fas fa-search fa-sm"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </h4>
+                        <h4 class="m-0 font-weight-bold text-primary">Account List</h4>
                     </div>
                     <div class="cpl-sm-12 col-md-6">
-                        <a href="{{ route('staff.course.add') }}" class="btn btn-primary btn-icon-split"
-                            style="float: right;">
+                        <a href="{{ route('admin.account.add') }}" class="btn btn-primary btn-icon-split" style="float: right;">
                             <span class="icon text-white-50">
                                 <i class="fas fa-flag"></i>
                             </span>
@@ -53,38 +37,44 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Username</th>
                                 <th>Name</th>
-                                <th>Description</th>
-                                <th>Category</th>
-                                <th></th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Department</th>
+                                <th>Type</th>
+                                <th>Education</th>
+                                <th>Role</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
-                        @foreach ($course as $key => $value)
+                        @foreach ($account as $key => $value)
                             <tbody>
                                 <tr>
-                                    <td>{{ $value->id }}</td>
+                                    <td>{{ $value->username }}</td>
                                     <td>{{ $value->name }}</td>
-                                    <td>{{ $value->description }}</td>
+                                    <td>{{ $value->email }}</td>
+                                    <td>{{ $value->phone }}</td>
+                                    <td>{{ $value->department }}</td>
+                                    <td>{{ $value->type }}</td>
+                                    <td>{{ $value->education }}</td>
                                     <td>
-                                        @foreach ($category as $categories)
-                                            @if ($categories->id == $value->category_id)
-                                                <option value="{{ $categories->id }}" selected>{{ $categories->name }}
+                                        @foreach ($role as $roles)
+                                            @if ($roles->id == $value->role_id)
+                                                <option value="{{ $roles->id }}" selected>{{ $roles->name }}
                                                 </option>
                                             @endif
                                         @endforeach
                                     </td>
-                                    <td></td>
                                     <td>
-                                        <a href="{{ asset('staff/course/update/' . $value->id) }}"
+                                        <a href="{{ asset('admin/account/update/' . $value->id) }}"
                                             class="btn btn-secondary btn-icon-split">
                                             <span class="icon text-white-10">
                                                 <i class="fas fa-arrow-right"></i>
                                             </span>
                                             <span class="text">Update</span>
                                         </a>
-                                        <a href="{{ asset('staff/course/delete/' . $value->id) }}"
+                                        <a href="{{ asset('admin/account/delete/' . $value->id) }}"
                                             onclick="return confirm('You sure to delete it?')"
                                             class="btn btn-danger btn-icon-split">
                                             <span class="icon text-white-10">
