@@ -6,6 +6,16 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
+##  Implement
+
+After you clone the project please run this command:
+- composer install
+- php artisan migrate
+- php artisan db:seed
+
+The default account of admin:
+- admin
+- 123
 
 ## About Laravel
 
