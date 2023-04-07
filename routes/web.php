@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\StaffController;
+use App\Http\Controllers\TrainerController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -8,14 +12,20 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('/')->group(function () {
+    Route::get('/',[AuthController::class,'getLogin']);
+    Route::post('/',[AuthController::class,'postLogin'])->name('auth.login');
 });
+
+Route::prefix('logout')->group(function () {
+    Route::post('/',[AuthController::class,'postLogout'])->name('auth.logout');
+});
+
 Route::group(['middleware' => ['auth', 'role:Admin']], function () {
     // admin routes
     Route::prefix('admin')->group(function () {
@@ -38,9 +48,6 @@ Route::group(['middleware' => ['auth', 'role:Admin']], function () {
         });
     });
 });
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => ['auth', 'role:Staff']], function () {
     // staff routes
@@ -104,6 +111,19 @@ Route::group(['middleware' => ['auth', 'role:Staff']], function () {
             Route::get('update/{id}',[StaffController::class,'getUpdateAssignTopic']);
             Route::post('update/{id}',[StaffController::class,'postUpdateAssignTopic'])->name('staff.assigntopic.update');
             Route::get('delete/{id}',[StaffController::class,'deleteAssignTopic']);
+        });
+    });
+});
+
+Route::group(['middleware' => ['auth', 'role:Trainer']], function () {
+    // trainer routes
+    Route::prefix('trainer')->group(function () {
+        Route::get('/',[TrainerController::class,'Trainerindex'])->name('trainer.index');
+        Route::get('assigntopic',[TrainerController::class,'Topicindex'])->name('trainer.topic.index');
+        Route::prefix('profile')->group(function () {
+            Route::get('/',[TrainerController::class,'Profileindex'])->name('trainer.profile');
+            Route::get('/update',[TrainerController::class,'getUpdateProfile']);
+            Route::post('/update',[TrainerController::class,'postUpdateProfile'])->name('trainer.profile.update');
         });
     });
 });
