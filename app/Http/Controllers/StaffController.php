@@ -80,7 +80,7 @@ class StaffController extends Controller
     public function postUpdateTrainee(Request $request, $id){
         if($request->isMethod('POST')){
             $validator=Validator::make($request->all(),[
-                
+
             ]);
 
             if($validator->fails()){
@@ -158,7 +158,7 @@ class StaffController extends Controller
     public function postUpdateCategory(Request $request, $id){
         if($request->isMethod('POST')){
             $validator=Validator::make($request->all(),[
-                
+
             ]);
 
             if($validator->fails()){
@@ -180,7 +180,7 @@ class StaffController extends Controller
         if ($coursesCount > 0) {
             return redirect()->back()->with('error', 'Some Courses is associated with this Category so this Category cannot be deleted!');
         }
-        
+
         Categories::where('id', $id)->delete();
         return redirect()->route('staff.category.index')->with('success', 'Delete Category Successfully!');
     }
@@ -235,7 +235,7 @@ class StaffController extends Controller
     public function postUpdateCourse(Request $request, $id){
         if($request->isMethod('POST')){
             $validator=Validator::make($request->all(),[
-                
+
             ]);
 
             if($validator->fails()){
@@ -257,10 +257,10 @@ class StaffController extends Controller
         $topicsCount = Topics::where('course_id', $id)->count();
         $assignsCount = AssignCourses::where('course_id', $id)->count();
         if ($topicsCount > 0 || $assignsCount > 0) {
-            return redirect()->back()->with('error', 'Some Topics is associated with this Course 
+            return redirect()->back()->with('error', 'Some Topics is associated with this Course
             or a Trainer was assigned to this Course. So this Course cannot be deleted!');
         }
-        
+
         Courses::where('id', $id)->delete();
         return redirect()->route('staff.course.index')->with('success', 'Delete Course Successfully!');
     }
@@ -315,7 +315,7 @@ class StaffController extends Controller
     public function postUpdateTopic(Request $request, $id){
         if($request->isMethod('POST')){
             $validator=Validator::make($request->all(),[
-                
+
             ]);
 
             if($validator->fails()){
@@ -336,10 +336,10 @@ class StaffController extends Controller
     public function deleteTopic($id) {
         $topicsCount = Topics::where('course_id', $id)->count();
         if ($topicsCount > 0) {
-            return redirect()->back()->with('error', 'Some Topics is associated with this Course 
+            return redirect()->back()->with('error', 'Some Topics is associated with this Course
             or a trainer was assigned to this course. So this Course cannot be deleted!');
         }
-        
+
         Topics::where('id', $id)->delete();
         return redirect()->route('staff.topic.index')->with('success', 'Delete Topics Successfully!');
     }
@@ -431,10 +431,10 @@ class StaffController extends Controller
         ->join('human_resources', 'assigned_courses.trainee_id', '=', 'human_resources.id')
         ->join('courses', 'assigned_courses.course_id', '=', 'courses.id')
         ->select(
-            'assigned_courses.id', 
-            'assigned_courses.trainee_id', 
-            'human_resources.name as trainee_name', 
-            'assigned_courses.course_id', 
+            'assigned_courses.id',
+            'assigned_courses.trainee_id',
+            'human_resources.name as trainee_name',
+            'assigned_courses.course_id',
             'courses.name as course_name',
             'courses.description'
         )
@@ -513,10 +513,10 @@ class StaffController extends Controller
         ->join('human_resources', 'assigned_topics.trainer_id', '=', 'human_resources.id')
         ->join('topics', 'assigned_topics.topic_id', '=', 'topics.id')
         ->select(
-            'assigned_topics.id', 
-            'assigned_topics.trainer_id', 
-            'human_resources.name as trainer_name', 
-            'assigned_topics.topic_id', 
+            'assigned_topics.id',
+            'assigned_topics.trainer_id',
+            'human_resources.name as trainer_name',
+            'assigned_topics.topic_id',
             'topics.name as topic_name',
             'topics.description'
         )
