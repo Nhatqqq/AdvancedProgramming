@@ -53,9 +53,9 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>Course</th>
                                 <th>Trainee</th>
-                                <th>Description</th>
+                                <th>Course</th>
+                                <th>Course Description</th>
                                 <th></th>
                                 <th></th>
                                 <th>Option</th>
